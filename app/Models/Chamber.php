@@ -12,11 +12,17 @@ class Chamber extends Model
 
     protected $fillable = [
         'doctor_id',
-        'name',        // e.g., Hospital Name / Clinic Name
+        'name',
         'address',
-        'city',
         'phone',
-        'schedule',    // visiting hours
+        'city',
+        'state',
+        'country',
+        'start_time',
+        'end_time',
+        'working_days',
+        'consultation_fee',
+        'status',
     ];
 
     // Chamber belongs to a doctor

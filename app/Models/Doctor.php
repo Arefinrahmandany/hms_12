@@ -11,9 +11,21 @@ class Doctor extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'specialization',
         'email',
         'phone',
+        'dob',
+        'gender',
+        'photo',
+        'specialization',
+        'qualification',
+        'experience',
+        'degree',
+        'registration_number',
+        'department',
+        'address',
+        'bio',
+        'languages',
+        'status',
     ];
 
     // One doctor can have many chambers

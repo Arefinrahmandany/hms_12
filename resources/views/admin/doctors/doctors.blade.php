@@ -36,6 +36,7 @@
                                             <th>Doctor Name</th>
                                             <th>Speciality</th>
                                             <th>Member Since</th>
+                                            <th>Number</th>
                                             <th>Earned</th>
                                             <th>Account Status</th>
                                             <th>Action</th>
@@ -52,6 +53,7 @@
                                                                 src="{{ $doctor->photo ? asset('storage/' . $doctor->photo) : asset('assets/admin/assets/img/doctors/doctor-thumb-01.jpg') }}"
                                                                 alt="{{ $doctor->name }}">
                                                         </a>
+
                                                         <a href="#">{{ $doctor->name }}</a>
                                                     </h2>
                                                 </td>
@@ -67,6 +69,10 @@
                                                 <td>
                                                     {{-- Example: show chamber count or phone number --}}
                                                     {{ $doctor->phone ?? 'N/A' }}
+                                                </td>
+
+                                                <td>
+                                                    Tk{{ number_format($doctor->earnings ?? 0, 2) }}
                                                 </td>
 
                                                 <td>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Doctors\DoctorsController;
 use App\Http\Controllers\Admin\Patients\PatientsController;
+use App\Http\Controllers\Admin\View\SpecialitiesController;
 
 
 //Frontend Routes
@@ -31,4 +32,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/doctors/store', [DoctorsController::class, 'store'])->name('admin.doctors.store');
     Route::put('/doctors/update/{doctor}', [DoctorsController::class, 'update'])->name('admin.doctors.update');
     Route::post('/doctors/status/{doctor}', [DoctorsController::class, 'status'])->name('admin.doctors.status');
+
+
+    Route::resource('/specialities', SpecialitiesController::class);
 });

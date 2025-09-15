@@ -123,15 +123,30 @@
                                     value="{{ $chamber->address }}" placeholder="Address" class="form-control mb-2">
                                 <input type="text" name="chambers[{{ $i }}][phone]"
                                     value="{{ $chamber->phone }}" placeholder="Phone" class="form-control mb-2">
+                                <input type="text" name="chambers[{{ $i }}][country]"
+                                    value="{{ $chamber->country }}" placeholder="Country" class="form-control mb-2">
                                 <input type="text" name="chambers[{{ $i }}][city]" value="{{ $chamber->city }}"
                                     placeholder="City" class="form-control mb-2">
                                 <input type="time" name="chambers[{{ $i }}][start_time]"
                                     value="{{ $chamber->start_time }}" class="form-control mb-2">
                                 <input type="time" name="chambers[{{ $i }}][end_time]"
                                     value="{{ $chamber->end_time }}" class="form-control mb-2">
-                                <input type="text" name="chambers[{{ $i }}][working_days]"
-                                    value="{{ $chamber->working_days }}" placeholder="e.g. Mon-Fri"
-                                    class="form-control mb-2">
+                                <div class="mb-2">
+                                    <label>Working Days:</label><br>
+                                    @php
+                                        $days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+                                        $selectedDays = isset($chamber->working_days) ? explode(',', $chamber->working_days) : [];
+                                    @endphp
+                                    @foreach($days as $day)
+                                        <label class="me-2">
+                                            <input type="checkbox" name="chambers[{{ $i }}][working_days][]"
+                                                value="{{ $day }}"
+                                                {{ in_array($day, $selectedDays) ? 'checked' : '' }}>
+                                            {{ $day }}
+                                        </label>
+                                    @endforeach
+                                </div>
+
                                 <input type="number" step="0.01" name="chambers[{{ $i }}][consultation_fee]"
                                     value="{{ $chamber->consultation_fee }}" placeholder="Consultation Fee"
                                     class="form-control mb-2">
@@ -159,16 +174,26 @@
             let row = document.createElement('div');
             row.classList.add('chamber-row', 'border', 'p-3', 'mb-2');
             row.innerHTML = `
-        <input type="text" name="chambers[${index}][name]" placeholder="Chamber Name" class="form-control mb-2">
-        <input type="text" name="chambers[${index}][address]" placeholder="Address" class="form-control mb-2">
-        <input type="text" name="chambers[${index}][phone]" placeholder="Phone" class="form-control mb-2">
-        <input type="text" name="chambers[${index}][city]" placeholder="City" class="form-control mb-2">
-        <input type="time" name="chambers[${index}][start_time]" class="form-control mb-2">
-        <input type="time" name="chambers[${index}][end_time]" class="form-control mb-2">
-        <input type="text" name="chambers[${index}][working_days]" placeholder="e.g. Mon-Fri" class="form-control mb-2">
-        <input type="number" step="0.01" name="chambers[${index}][consultation_fee]" placeholder="Consultation Fee" class="form-control mb-2">
-        <button type="button" class="btn btn-danger remove-chamber">Remove</button>
-    `;
+                <input type="text" name="chambers[${index}][name]" placeholder="Chamber Name" class="form-control mb-2">
+                <input type="text" name="chambers[${index}][address]" placeholder="Address" class="form-control mb-2">
+                <input type="text" name="chambers[${index}][phone]" placeholder="Phone" class="form-control mb-2">
+                <input type="text" name="chambers[${index}][country]" placeholder="Country" class="form-control mb-2">
+                <input type="text" name="chambers[${index}][city]" placeholder="City" class="form-control mb-2">
+                <input type="time" name="chambers[${index}][start_time]" class="form-control mb-2">
+                <input type="time" name="chambers[${index}][end_time]" class="form-control mb-2">
+                <div class="mb-2">
+                    <label>Working Days:</label><br>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Mon"> Mon</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Tue"> Tue</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Wed"> Wed</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Thu"> Thu</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Fri"> Fri</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Sat"> Sat</label>
+                    <label class="me-2"><input type="checkbox" name="chambers[${index}][working_days][]" value="Sun"> Sun</label>
+                </div>
+                <input type="number" step="0.01" name="chambers[${index}][consultation_fee]" placeholder="Consultation Fee" class="form-control mb-2">
+                <button type="button" class="btn btn-danger remove-chamber">Remove</button>
+            `;
             container.appendChild(row);
 
             row.querySelector('.remove-chamber').addEventListener('click', function() {

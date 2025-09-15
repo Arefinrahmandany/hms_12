@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Doctors;
 
+use Storage;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,9 +39,9 @@ class DoctorsController extends Controller
 
         $doctor = Doctor::create($data);
 
-        if ($request->chambers) {
+        // Save chambers if provided
+        if ($request->has('chambers')) {
             foreach ($request->chambers as $chamberData) {
-                // skip if chamber name is empty (or any key field is missing)
                 if (!empty($chamberData['name'])) {
                     $doctor->chambers()->create($chamberData);
                 }
@@ -54,21 +55,34 @@ class DoctorsController extends Controller
     {
         $data = $request->except('chambers');
 
+        // Handle photo update
         if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($doctor->photo && Storage::disk('public')->exists($doctor->photo)) {
+                \Storage::disk('public')->delete($doctor->photo);
+            }
             $data['photo'] = $request->file('photo')->store('doctors', 'public');
         }
 
+        // Update doctor info
         $doctor->update($data);
 
-        $doctor->chambers()->delete(); // reset chambers
-        if ($request->chambers) {
-            foreach ($request->chambers as $chamberData) {
+        // Reset chambers
+        $doctor->chambers()->delete();
+
+        foreach ($request->chambers as $chamberData) {
+            if (!empty($chamberData['name'])) {
+                if (isset($chamberData['working_days']) && is_array($chamberData['working_days'])) {
+                    $chamberData['working_days'] = implode(',', $chamberData['working_days']);
+                }
                 $doctor->chambers()->create($chamberData);
             }
         }
 
+
         return redirect()->route('admin.doctors')->with('success', 'Doctor updated successfully.');
     }
+
 
     public function status(Request $request, Doctor $doctor)
     {
