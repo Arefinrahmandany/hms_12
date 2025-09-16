@@ -45,57 +45,17 @@
                 <div class="col-md-9">
                     <!-- Slider -->
                     <div class="specialities-slider slider">
-
                         <!-- Slider Item -->
+                        @foreach ( $specialities as $speciality )
                         <div class="speicality-item text-center">
                             <div class="speicality-img">
-                                <img src="assets/img/specialities/specialities-01.png" class="img-fluid" alt="Speciality">
+                                <img src="{{ asset('storage/' . $speciality->image) }}" class="img-fluid" alt="{{ $speciality['name'] }}">
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </div>
-                            <p>Urology</p>
+                            <p>{{ $speciality['name'] }}</p>
                         </div>
+                        @endforeach
                         <!-- /Slider Item -->
-
-                        <!-- Slider Item -->
-                        <div class="speicality-item text-center">
-                            <div class="speicality-img">
-                                <img src="assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                            </div>
-                            <p>Neurology</p>
-                        </div>
-                        <!-- /Slider Item -->
-
-                        <!-- Slider Item -->
-                        <div class="speicality-item text-center">
-                            <div class="speicality-img">
-                                <img src="assets/img/specialities/specialities-03.png" class="img-fluid" alt="Speciality">
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                            </div>
-                            <p>Orthopedic</p>
-                        </div>
-                        <!-- /Slider Item -->
-
-                        <!-- Slider Item -->
-                        <div class="speicality-item text-center">
-                            <div class="speicality-img">
-                                <img src="assets/img/specialities/specialities-04.png" class="img-fluid" alt="Speciality">
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                            </div>
-                            <p>Cardiologist</p>
-                        </div>
-                        <!-- /Slider Item -->
-
-                        <!-- Slider Item -->
-                        <div class="speicality-item text-center">
-                            <div class="speicality-img">
-                                <img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">
-                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                            </div>
-                            <p>Dentist</p>
-                        </div>
-                        <!-- /Slider Item -->
-
                     </div>
                     <!-- /Slider -->
 

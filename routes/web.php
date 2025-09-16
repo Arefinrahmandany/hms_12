@@ -6,12 +6,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Doctors\DoctorsController;
 use App\Http\Controllers\Admin\Patients\PatientsController;
 use App\Http\Controllers\Admin\View\SpecialitiesController;
+use App\Http\Controllers\front\common\HomeController;
 
 
 //Frontend Routes
-Route::get('/', function () {
-    return view('frontend.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/about', function () {
     return view('frontend.about');
